@@ -1,28 +1,26 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { usersModel } from "../model/users.model.js";
 export const registerView = async (req, res) => {
   const { name, email, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 3);
   // Check if user is already in DB
-  usersModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      // return 400 if exists
-      res.status(400).json(`Email${email} already in use`);
-    } else {
-      // Register User
-      const newUser = usersModel({
-        name: name,
-        email: email,
-        password: hashedPassword,
-      });
-      newUser
-        .save()
-        .then((user) => {
-          res.status(200).json(user);
-        })
-        .catch((error) => {
-          res.status(400).json(error);
+  const user = await usersModel.findOne({ email });
+  if (!user) {
+    bcrypt
+      .hash(password, 6)
+      .then((result) => {
+        const newUser = usersModel({
+          name: name,
+          email: email,
+          password: result,
         });
-    }
-  });
+        return newUser.save();
+      })
+      .then((user) => {
+        if (user) {
+          res.status(200).json({ status: "ok", user: user });
+        }
+      });
+  } else {
+    res.status(400).json({ status: "fail", message: "email is taken" });
+  }
 };
