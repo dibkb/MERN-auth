@@ -3,6 +3,7 @@ import { usersModel } from "../model/users.model.js";
 export const registerView = async (req, res) => {
   const { name, email, password } = req.body;
   // Check if user is already in DB
+  console.log(req.body);
   const user = await usersModel.findOne({ email });
   if (!user) {
     bcrypt

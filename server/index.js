@@ -1,16 +1,21 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import * as dotenv from "dotenv";
+import bodyParser from "body-parser";
+import dotenv from "dotenv/config";
 import { routerRegister } from "./views/register.js";
 import { routerLogin } from "./views/login.js";
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 // middleware
 // cors
 app.use(cors());
 app.use(express.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 // mongoose connect
 mongoose

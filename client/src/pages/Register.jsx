@@ -9,18 +9,23 @@ const Register = () => {
     const response = await fetch("http://localhost:4000/api/register", {
       method: "POST",
       headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
       },
+      mode: "cors",
       body: JSON.stringify({
         name,
         email,
         password,
       }),
     });
+    const data = await response.json();
+    console.log(data);
     // setName("");
     // setEmail("");
     // setPassword("");
-    console.log(response);
   };
   return (
     <div>
