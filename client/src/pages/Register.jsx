@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
+  let navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +23,9 @@ const Register = () => {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    if (data.status === "ok") {
+      return navigate("/login");
+    }
     // setName("");
     // setEmail("");
     // setPassword("");

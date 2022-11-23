@@ -17,7 +17,7 @@ export const loginView = async (req, res) => {
             expiresIn: "3 days",
           }
         );
-        res.status(200).json({ status: "ok", user: token });
+        res.status(200).json({ status: "ok", token: token, user: user });
       } else {
         res.status(400).json("Passwords do not match");
       }
