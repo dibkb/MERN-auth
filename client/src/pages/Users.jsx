@@ -5,11 +5,10 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const Users = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  console.log(user);
   return (
     <div>
       <h1>USERS PAGE</h1>
-      <p style={{ fontSize: "6px" }}>TOEKN : {user.token}</p>
+      <p style={{ fontSize: "6px" }}>TOKEN : {user?.token}</p>
     </div>
   );
 };
