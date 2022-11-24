@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv/config";
 import { routerRegister } from "./views/register.js";
 import { routerLogin } from "./views/login.js";
+import { routerUser } from "./views/user.js";
 const app = express();
 const PORT = process.env.PORT;
 // middleware
@@ -30,6 +31,8 @@ mongoose
 app.use("/api/register", routerRegister);
 // login
 app.use("/api/login", routerLogin);
+// user
+app.use("/api/user", routerUser);
 app.listen(PORT, () => {
   console.log(`Application is listening at port ${PORT}`);
 });
