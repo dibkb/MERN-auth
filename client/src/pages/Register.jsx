@@ -1,31 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useRegister } from "../hooks/useRegister";
 const Register = () => {
-  let navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const sumbitHandler = async (e) => {
+  const [signup, error] = useRegister();
+  const sumbitHandler = (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/api/register", {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
-    const data = await response.json();
-    if (data.status === "ok") {
-      return navigate("/login");
-    }
+    signup(name, email, password);
     // setName("");
     // setEmail("");
     // setPassword("");
@@ -59,6 +42,17 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={sumbitHandler}>Register</button>
+        {error && (
+          <div
+            style={{
+              color: "red",
+              border: "1px solid red",
+              padding: "1rem 2rem",
+            }}
+          >
+            {error}
+          </div>
+        )}
         <Link to="/login">Login</Link>
       </form>
     </div>

@@ -1,34 +1,13 @@
-import React, { useState, useReducer } from "react";
-import { reducer, store } from "../context/store";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [state, dispatch] = useReducer(reducer, store);
-  const loginHandler = async (e) => {
+  const [loginUser, error] = useLogin();
+  const loginHandler = (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/api/login", {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    const data = await response.json();
-    if (data.status === "ok") {
-      localStorage.setItem("token", data.token);
-      dispatch({ type: "STORE_USER", payload: data.user });
-    }
-    // setName("");
-    // setEmail("");
-    // setPassword("");
+    loginUser(email, password);
   };
   return (
     <div>
@@ -53,6 +32,17 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={loginHandler}>Login</button>
+        {error && (
+          <div
+            style={{
+              color: "red",
+              border: "1px solid red",
+              padding: "1rem 2rem",
+            }}
+          >
+            {error}
+          </div>
+        )}
         <Link to="/register">Register</Link>
       </form>
     </div>

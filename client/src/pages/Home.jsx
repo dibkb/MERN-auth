@@ -6,6 +6,7 @@ const Home = () => {
       <header>
         <Link to="/register">Register</Link>
         <Link to="/login">Login</Link>
+        <Link to="/users">profile</Link>
       </header>
       <h1>Home</h1>
     </div>

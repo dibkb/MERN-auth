@@ -17,12 +17,16 @@ export const loginView = async (req, res) => {
             expiresIn: "3 days",
           }
         );
-        res.status(200).json({ status: "ok", token: token, user: user });
+        res.status(200).json({ token: token, userId: user._id });
       } else {
-        res.status(400).json("Passwords do not match");
+        res
+          .status(400)
+          .json({ status: "fail", message: "Wrong password bruh" });
       }
     });
   else {
-    res.status(400).json("Email does not exist");
+    res
+      .status(400)
+      .json({ status: "fail", message: "Email does not exists bruh" });
   }
 };

@@ -1,22 +1,14 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { useEffect } from "react";
-import { AppContext } from "../context/store";
 import { useNavigate } from "react-router-dom";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 const Users = () => {
   const navigate = useNavigate();
-  const [token, useToken] = useState(localStorage.getItem("token"));
-  useEffect(() => {
-    if (!token) {
-      return navigate("/home");
-    }
-  }, [token]);
-  const user = useContext(AppContext);
-  console.log(user, AppContext);
+  const { user } = useAuthContext();
   return (
     <div>
       <h1>USERS PAGE</h1>
-      <p style={{ fontSize: "12px" }}>TOEKN : {token}</p>
+      <p style={{ fontSize: "6px" }}>TOEKN : {user.token}</p>
     </div>
   );
 };
