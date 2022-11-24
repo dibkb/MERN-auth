@@ -8,6 +8,8 @@ const Login = () => {
   const loginHandler = (e) => {
     e.preventDefault();
     loginUser(email, password);
+    setEmail();
+    setPassword();
   };
   return (
     <div>
@@ -20,18 +22,32 @@ const Login = () => {
         }}
       >
         <input
+          style={{
+            fontSize: "1rem",
+          }}
           type="text"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          style={{
+            fontSize: "1rem",
+          }}
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={loginHandler}>Login</button>
+        <button
+          style={{
+            fontSize: "1rem",
+            padding: "1rem",
+          }}
+          onClick={loginHandler}
+        >
+          Login
+        </button>
         {error && (
           <div
             style={{
@@ -41,6 +57,24 @@ const Login = () => {
             }}
           >
             {error}
+          </div>
+        )}
+        {error === false && (
+          <div
+            style={{
+              color: "green",
+              border: "1px solid green",
+              padding: "1rem 2rem",
+            }}
+          >
+            <Link
+              style={{
+                color: "green",
+              }}
+              to="/users"
+            >
+              Go to your page
+            </Link>
           </div>
         )}
         <Link to="/register">Register</Link>

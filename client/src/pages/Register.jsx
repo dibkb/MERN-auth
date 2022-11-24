@@ -24,24 +24,41 @@ const Register = () => {
         }}
       >
         <input
+          style={{
+            fontSize: "1rem",
+          }}
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
+          style={{
+            fontSize: "1rem",
+          }}
           type="text"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          style={{
+            fontSize: "1rem",
+          }}
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={sumbitHandler}>Register</button>
+        <button
+          style={{
+            fontSize: "1rem",
+            padding: "1rem",
+          }}
+          onClick={sumbitHandler}
+        >
+          Register
+        </button>
         {error && (
           <div
             style={{
