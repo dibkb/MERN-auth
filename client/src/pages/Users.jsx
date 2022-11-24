@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const Users = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  console.log(user);
   return (
     <div>
       <h1>USERS PAGE</h1>
